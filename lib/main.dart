@@ -14,15 +14,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'My first Flutter app',            // Titre de l'application
-        home: Scaffold(                           // home = Route par defaut (equivalent de /)
-          appBar: AppBar(                         // Barre affichee en haut de l'ecran
-            title: const Text('Appbar title'),
-          ),
-          body: const Center(                     // Corps de l'application
-            child: RandomWords(),
-          ),
-        ));
+      title: 'My first Flutter app', // Titre de l'application
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+      home: Scaffold(
+        // home = Route par defaut (equivalent de /)
+        appBar: AppBar(
+          // Barre affichee en haut de l'ecran
+          title: const Text('Appbar title'),
+        ),
+        body: const Center(
+          // Corps de l'application
+          child: RandomWords(),
+        ),
+      ),
+    );
   }
 }
 
@@ -37,25 +44,25 @@ class RandomWords extends StatefulWidget {
 
 // Definition d'un etat
 class _RandomWordsState extends State<RandomWords> {
-  final randomWordPairs = <WordPair>[];   // Liste des mots generes
-  final toggledWordPairs = <WordPair>{};  // Liste des mots cliques
+  final randomWordPairs = <WordPair>[]; // Liste des mots generes
+  final toggledWordPairs = <WordPair>{}; // Liste des mots cliques
 
   // Construction d'une ligne
   Widget buildRow(WordPair pair) {
     final toggled = toggledWordPairs.contains(pair);
 
-    return ListTile(                                     // ListTile = 1 element de liste
+    return ListTile(
+      // ListTile = 1 element de liste
       title: Text(pair.asLowerCase,
           style: const TextStyle(
-              fontSize: 29,
-              fontFamily: 'Roboto',
-              color: Colors.cyan)
-      ),
-      trailing: Icon(                                     // Trailing = a la fin
+              fontSize: 29, fontFamily: 'Roboto', color: Colors.cyan)),
+      trailing: Icon(
+        // Trailing = a la fin
         Icons.access_alarm,
         color: toggled ? Colors.red : null,
       ),
-      onTap: () {                                         // onTap = callback appele des qu'on tape sur un element de liste
+      onTap: () {
+        // onTap = callback appele des qu'on tape sur un element de liste
         setState(() {
           // Mise a jour de l'etat
           toggled ? toggledWordPairs.remove(pair) : toggledWordPairs.add(pair);
@@ -66,8 +73,10 @@ class _RandomWordsState extends State<RandomWords> {
 
   // Construction de la liste
   Widget buildList() {
-    return ListView.builder(                                // builder nous permet de creer une liste a la demande
-      itemBuilder: (context, item) {                        // callback qui ajoute les elements a notre liste
+    return ListView.builder(
+      // builder nous permet de creer une liste a la demande
+      itemBuilder: (context, item) {
+        // callback qui ajoute les elements a notre liste
         randomWordPairs.add(generateWordPairs().first);
         return buildRow(randomWordPairs[item]);
       },
