@@ -32,7 +32,7 @@ class RandomWords extends StatefulWidget {
 
 class _RandomWordsState extends State<RandomWords> {
   final randomWordPairs = <WordPair>[];
-  final toggledWordPairs = Set<WordPair>();
+  final toggledWordPairs = <WordPair>{};
 
 
   Widget buildRow(WordPair pair) {
